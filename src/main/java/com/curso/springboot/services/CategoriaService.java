@@ -22,7 +22,7 @@ public class CategoriaService {
     private CategoriaDAO categoriaDAO;
     
     public Categoria buscar(Integer id){
-        Optional<Object> optional = categoriaDAO.findById(id);
+        Optional<Categoria> optional = categoriaDAO.findById(id);
         return (Categoria) optional.orElse(null); 
     }
 }
