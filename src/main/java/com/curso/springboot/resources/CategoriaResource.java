@@ -5,6 +5,9 @@
  */
 package com.curso.springboot.resources;
 
+import com.curso.springboot.domain.Categoria;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoriaResource {
     
     @RequestMapping(method = RequestMethod.GET)
-    public String listar(){
-        return "Olá mundo";
+    public List<Categoria> listar(){
+        Categoria cat1 = new Categoria(1, "Informatica");
+        Categoria cat2 = new Categoria(2, "Escritorio");
+        
+        List<Categoria> lcat = new ArrayList<>();
+        lcat.add(cat1);
+        lcat.add(cat2);
+        
+        return lcat;
     }
 }
