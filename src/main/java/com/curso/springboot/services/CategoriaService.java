@@ -7,6 +7,7 @@ package com.curso.springboot.services;
 
 import com.curso.springboot.DAO.CategoriaDAO;
 import com.curso.springboot.domain.Categoria;
+import com.curso.springboot.services.exception.ObjectNotFoundException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CategoriaService {
-    
+
     @Autowired
     private CategoriaDAO categoriaDAO;
-    
-    public Categoria buscar(Integer id){
+
+    public Categoria buscar(Integer id) {
         Optional<Categoria> optional = categoriaDAO.findById(id);
-        return (Categoria) optional.orElse(null); 
+        return optional.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! id: " + id + ", Tipo: " + Categoria.class.getName())
+        );
     }
 }
