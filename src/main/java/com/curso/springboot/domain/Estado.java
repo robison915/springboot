@@ -5,7 +5,6 @@
  */
 package com.curso.springboot.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,43 +13,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Robison
  */
 @Entity
-public class Categoria implements Serializable{
-    private static final long serialVersionUID = -2048278309839116391L;
+public class Estado implements Serializable{
+    private static final long serialVersionUID = 3982105026364062711L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     
-    @JsonManagedReference
-    @ManyToMany(mappedBy = "categorias")
-    private List<Produto> produtos;// = new ArrayList<>();
-    
-    public Categoria() {
-        this.produtos = new ArrayList<>();
-    }
-    
-    public Categoria(Integer id, String nome) {
+    @OneToMany(mappedBy = "estado")
+    private List<Cidade> cidades;
+
+    public Estado(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.produtos = new ArrayList<>();
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+        this.cidades =  new ArrayList<>();
     }
     
+    public Estado() {
+        this.cidades =  new ArrayList<>();
+    }
+
     public Integer getId() {
         return id;
     }
@@ -66,13 +56,22 @@ public class Categoria implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
+    public List<Cidade> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(List<Cidade> cidades) {
+        this.cidades = cidades;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -84,14 +83,12 @@ public class Categoria implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Categoria other = (Categoria) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
+        final Estado other = (Estado) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-
+    
+    
 }
