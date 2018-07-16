@@ -2,12 +2,18 @@ package com.curso.springboot;
 
 import com.curso.springboot.DAO.CategoriaDAO;
 import com.curso.springboot.DAO.CidadeDAO;
+import com.curso.springboot.DAO.ClienteDAO;
+import com.curso.springboot.DAO.EnderecoDAO;
 import com.curso.springboot.DAO.EstadoDAO;
 import com.curso.springboot.DAO.ProdutoDAO;
 import com.curso.springboot.domain.Categoria;
 import com.curso.springboot.domain.Cidade;
+import com.curso.springboot.domain.Cliente;
+import com.curso.springboot.domain.Endereco;
 import com.curso.springboot.domain.Estado;
 import com.curso.springboot.domain.Produto;
+import com.curso.springboot.domain.enums.TipoCliente;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +30,10 @@ public class SpringbootconceitoApplication implements CommandLineRunner{
     private EstadoDAO estadoDAO;
     @Autowired
     private CidadeDAO cidadeDAO;
+    @Autowired
+    private EnderecoDAO enderecoDAO;
+    @Autowired
+    private ClienteDAO clienteDAO;
     
     public static void main(String[] args) {
         SpringApplication.run(SpringbootconceitoApplication.class, args);
@@ -61,5 +71,18 @@ public class SpringbootconceitoApplication implements CommandLineRunner{
         
         estadoDAO.saveAll(Arrays.asList(estado1,estado2));
         cidadeDAO.saveAll(Arrays.asList(cidade1,cidade2,cidade3));
+        /*---------------------------------------------------------------------*/
+        // Cliente Endereco
+        //Cliente cliente = new Cliente(null, "Fulano", "fulano@gmail.com", "01234567890", TipoCliente.PESSOA_FISICA);
+        Cliente cliente1 = new Cliente(null, "Maria", "maria@gmail.com", "01234567891", TipoCliente.PESSOA_FISICA);
+        cliente1.getTelefones().addAll(Arrays.asList("0123456789","0123456780"));
+        
+        Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "apto 303", "Jardim", "01234567", cliente1, cidade1);
+        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "Centro", "01234568", cliente1, cidade2);
+        
+        cliente1.getEnderecos().addAll(Arrays.asList(endereco1,endereco2));
+        
+        clienteDAO.saveAll(Arrays.asList(cliente1));
+        enderecoDAO.saveAll(Arrays.asList(endereco1,endereco2));
     }
 }
