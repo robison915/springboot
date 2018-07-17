@@ -5,6 +5,7 @@ import com.curso.springboot.DAO.CidadeDAO;
 import com.curso.springboot.DAO.ClienteDAO;
 import com.curso.springboot.DAO.EnderecoDAO;
 import com.curso.springboot.DAO.EstadoDAO;
+import com.curso.springboot.DAO.ItemPedidoDAO;
 import com.curso.springboot.DAO.PagamentoDAO;
 import com.curso.springboot.DAO.PedidoDAO;
 import com.curso.springboot.DAO.ProdutoDAO;
@@ -13,6 +14,7 @@ import com.curso.springboot.domain.Cidade;
 import com.curso.springboot.domain.Cliente;
 import com.curso.springboot.domain.Endereco;
 import com.curso.springboot.domain.Estado;
+import com.curso.springboot.domain.ItemPedido;
 import com.curso.springboot.domain.Pagamento;
 import com.curso.springboot.domain.PagamentoBoleto;
 import com.curso.springboot.domain.PagamentoCartao;
@@ -20,7 +22,6 @@ import com.curso.springboot.domain.Pedido;
 import com.curso.springboot.domain.Produto;
 import com.curso.springboot.domain.enums.EstadoPagamento;
 import com.curso.springboot.domain.enums.TipoCliente;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,8 @@ public class SpringbootconceitoApplication implements CommandLineRunner{
     private PagamentoDAO pagamentoDAO;
     @Autowired
     private PedidoDAO pedidoDAO;
+    @Autowired
+    private ItemPedidoDAO itemPedidoDAO;
     
     public static void main(String[] args) {
         SpringApplication.run(SpringbootconceitoApplication.class, args);
@@ -113,5 +116,20 @@ public class SpringbootconceitoApplication implements CommandLineRunner{
         
         pedidoDAO.saveAll(Arrays.asList(pedido1,pedido2));
         pagamentoDAO.saveAll(Arrays.asList(pagamento1,pagamento2));
+        /*---------------------------------------------------------------------*/
+        // ItemPedido
+        
+        ItemPedido itemPedido1 = new ItemPedido(pedido1, produto1, 0.00, 1, 2000.00);
+        ItemPedido itemPedido2 = new ItemPedido(pedido1, produto3, 0.00, 2, 80.00);
+        ItemPedido itemPedido3 = new ItemPedido(pedido2, produto2, 100.00, 1, 800.00);
+        
+        pedido1.getItens().addAll(Arrays.asList(itemPedido1,itemPedido2));
+        pedido2.getItens().addAll(Arrays.asList(itemPedido3));
+        
+        produto1.getItens().addAll(Arrays.asList(itemPedido1));
+        produto2.getItens().addAll(Arrays.asList(itemPedido3));
+        produto3.getItens().addAll(Arrays.asList(itemPedido2));
+        
+        itemPedidoDAO.saveAll(Arrays.asList(itemPedido1,itemPedido2,itemPedido3));
     }
 }
