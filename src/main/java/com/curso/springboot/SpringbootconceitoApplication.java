@@ -5,15 +5,23 @@ import com.curso.springboot.DAO.CidadeDAO;
 import com.curso.springboot.DAO.ClienteDAO;
 import com.curso.springboot.DAO.EnderecoDAO;
 import com.curso.springboot.DAO.EstadoDAO;
+import com.curso.springboot.DAO.PagamentoDAO;
+import com.curso.springboot.DAO.PedidoDAO;
 import com.curso.springboot.DAO.ProdutoDAO;
 import com.curso.springboot.domain.Categoria;
 import com.curso.springboot.domain.Cidade;
 import com.curso.springboot.domain.Cliente;
 import com.curso.springboot.domain.Endereco;
 import com.curso.springboot.domain.Estado;
+import com.curso.springboot.domain.Pagamento;
+import com.curso.springboot.domain.PagamentoBoleto;
+import com.curso.springboot.domain.PagamentoCartao;
+import com.curso.springboot.domain.Pedido;
 import com.curso.springboot.domain.Produto;
+import com.curso.springboot.domain.enums.EstadoPagamento;
 import com.curso.springboot.domain.enums.TipoCliente;
 import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,6 +42,10 @@ public class SpringbootconceitoApplication implements CommandLineRunner{
     private EnderecoDAO enderecoDAO;
     @Autowired
     private ClienteDAO clienteDAO;
+    @Autowired
+    private PagamentoDAO pagamentoDAO;
+    @Autowired
+    private PedidoDAO pedidoDAO;
     
     public static void main(String[] args) {
         SpringApplication.run(SpringbootconceitoApplication.class, args);
@@ -84,5 +96,22 @@ public class SpringbootconceitoApplication implements CommandLineRunner{
         
         clienteDAO.saveAll(Arrays.asList(cliente1));
         enderecoDAO.saveAll(Arrays.asList(endereco1,endereco2));
+        /*---------------------------------------------------------------------*/
+        // Pedido Pagamento
+        String pattern = "dd/MM/yyyy HH:mm";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Pedido pedido1 = new Pedido(null, simpleDateFormat.parse("30/09/2017 10:32"), cliente1, endereco1);
+        Pedido pedido2 = new Pedido(null, simpleDateFormat.parse("10/10/2017 19:35"), cliente1, endereco2);
+        
+        Pagamento pagamento1 = new PagamentoCartao(null, 6, EstadoPagamento.QUITADO, pedido1);
+        pedido1.setPagamento(pagamento1);
+        
+        Pagamento pagamento2 = new PagamentoBoleto(null, EstadoPagamento.PENDENTE, pedido2, null, simpleDateFormat.parse("20/10/2017 00:00"));
+        pedido2.setPagamento(pagamento2);
+        
+        cliente1.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
+        
+        pedidoDAO.saveAll(Arrays.asList(pedido1,pedido2));
+        pagamentoDAO.saveAll(Arrays.asList(pagamento1,pagamento2));
     }
 }

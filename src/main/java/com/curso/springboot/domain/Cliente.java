@@ -44,9 +44,13 @@ public class Cliente implements Serializable{
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones;
-
+    
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos;
+    
     public Cliente() {
         this.enderecos = new ArrayList<>();
+        this.pedidos = new ArrayList<>();
         this.telefones = new HashSet<>();
     }
 
@@ -58,6 +62,7 @@ public class Cliente implements Serializable{
         this.tipoCliente = tipoCliente.getCodigo();
         this.enderecos = new ArrayList<>();
         this.telefones = new HashSet<>();
+        this.pedidos = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -116,6 +121,14 @@ public class Cliente implements Serializable{
         this.telefones = telefones;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
