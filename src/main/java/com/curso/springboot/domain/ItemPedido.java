@@ -5,6 +5,7 @@
  */
 package com.curso.springboot.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.EmbeddedId;
@@ -18,6 +19,7 @@ import javax.persistence.Entity;
 public class ItemPedido implements Serializable{
     private static final long serialVersionUID = -5527246800941813144L;
     
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id;
     private Double desconto;
@@ -36,6 +38,7 @@ public class ItemPedido implements Serializable{
         this.preco = preco;
     }
 
+    @JsonIgnore
     public Pedido getPedido() {
         return id.getPedido();
     }

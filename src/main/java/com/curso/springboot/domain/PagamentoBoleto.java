@@ -6,6 +6,7 @@
 package com.curso.springboot.domain;
 
 import com.curso.springboot.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 
@@ -17,7 +18,11 @@ import javax.persistence.Entity;
 public class PagamentoBoleto extends Pagamento{
 
     private static final long serialVersionUID = 2691442321646831105L;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataPagamento;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataVencimento;
 
     public PagamentoBoleto() {

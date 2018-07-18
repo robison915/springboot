@@ -6,6 +6,7 @@
 package com.curso.springboot.domain;
 
 import com.curso.springboot.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class Cliente implements Serializable{
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones;
     
+    @JsonBackReference
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
     
