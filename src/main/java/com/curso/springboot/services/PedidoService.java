@@ -22,7 +22,7 @@ public class PedidoService {
     @Autowired
     private PedidoDAO pedidoDAO;
 
-    public Pedido buscar(Integer id) {
+    public Pedido findById(Integer id) {
         Optional<Pedido> optional = pedidoDAO.findById(id);
         return optional.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! id: " + id + ", Tipo: " + Pedido.class.getName())

@@ -33,4 +33,9 @@ public class CategoriaService {
         categoria.setId(null);
         return categoriaDAO.save(categoria);
     }
+    
+    public Categoria update(Categoria categoria) {
+        this.findById(categoria.getId());
+        return categoriaDAO.save(categoria);
+    }
 }

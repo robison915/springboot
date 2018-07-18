@@ -22,7 +22,7 @@ public class ClienteService {
     @Autowired
     private ClienteDAO clienteDAO;
 
-    public Cliente buscar(Integer id) {
+    public Cliente findById(Integer id) {
         Optional<Cliente> optional = clienteDAO.findById(id);
         return optional.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! id: " + id + ", Tipo: " + Cliente.class.getName())
