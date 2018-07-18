@@ -6,8 +6,7 @@
 package com.curso.springboot.domain;
 
 import com.curso.springboot.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,7 +37,7 @@ public class Cliente implements Serializable{
     private String cpfCnpj;
     private Integer tipoCliente;
     
-    @JsonManagedReference
+    //@JsonManagedReference deletado para usar o jsonIgnore no outro lado
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos;
     
@@ -46,7 +45,8 @@ public class Cliente implements Serializable{
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones;
     
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
     

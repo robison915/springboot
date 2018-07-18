@@ -6,7 +6,6 @@
 package com.curso.springboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -37,11 +36,11 @@ public class Pedido implements Serializable{
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Date data;
     
-    @JsonManagedReference
+    //@JsonManagedReference deletado para usar o jsonIgnore no outro lado
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
     
-    @JsonManagedReference
+    //@JsonManagedReference deletado para usar o jsonIgnore no outro lado
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

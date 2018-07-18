@@ -5,7 +5,6 @@
  */
 package com.curso.springboot.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -28,7 +27,7 @@ public class Cidade implements Serializable{
     private Integer id;
     private String nome;
     
-    @JsonManagedReference
+    //@JsonManagedReference deletado para usar o jsonIgnore no outro lado
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
