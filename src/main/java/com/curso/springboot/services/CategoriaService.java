@@ -22,10 +22,15 @@ public class CategoriaService {
     @Autowired
     private CategoriaDAO categoriaDAO;
 
-    public Categoria buscar(Integer id) {
+    public Categoria findById(Integer id) {
         Optional<Categoria> optional = categoriaDAO.findById(id);
         return optional.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! id: " + id + ", Tipo: " + Categoria.class.getName())
         );
+    }
+    
+    public Categoria insert(Categoria categoria) {
+        categoria.setId(null);
+        return categoriaDAO.save(categoria);
     }
 }
