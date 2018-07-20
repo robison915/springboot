@@ -5,6 +5,7 @@
  */
 package com.curso.springboot.resources.exceptions;
 
+import com.curso.springboot.services.exception.DataIntegrityException;
 import com.curso.springboot.services.exception.ObjectNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -23,5 +24,11 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException ex, HttpServletRequest httpRequest){
         StandardError error = new StandardError(HttpStatus.NOT_FOUND.value(), ex.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    
+    @ExceptionHandler(DataIntegrityException.class)
+    public ResponseEntity<StandardError> dataIntegrityException(DataIntegrityException ex, HttpServletRequest httpRequest){
+        StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

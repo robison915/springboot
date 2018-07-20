@@ -7,9 +7,11 @@ package com.curso.springboot.services;
 
 import com.curso.springboot.DAO.CategoriaDAO;
 import com.curso.springboot.domain.Categoria;
+import com.curso.springboot.services.exception.DataIntegrityException;
 import com.curso.springboot.services.exception.ObjectNotFoundException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,5 +39,15 @@ public class CategoriaService {
     public Categoria update(Categoria categoria) {
         this.findById(categoria.getId());
         return categoriaDAO.save(categoria);
+    }
+    
+    public void deleteById(Integer id) throws DataIntegrityException{
+        this.findById(id);
+        try{
+            categoriaDAO.deleteById(id);
+        }catch(DataIntegrityViolationException ex){
+            throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+        }
+        
     }
 }
