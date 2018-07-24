@@ -5,7 +5,7 @@
  */
 package com.curso.springboot.services;
 
-import com.curso.springboot.DAO.ClienteDAO;
+import com.curso.springboot.dao.ClienteDAO;
 import com.curso.springboot.domain.Cliente;
 import com.curso.springboot.services.exception.ObjectNotFoundException;
 import java.util.Optional;

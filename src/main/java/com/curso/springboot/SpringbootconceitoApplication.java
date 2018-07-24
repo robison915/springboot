@@ -1,14 +1,14 @@
 package com.curso.springboot;
 
-import com.curso.springboot.DAO.CategoriaDAO;
-import com.curso.springboot.DAO.CidadeDAO;
-import com.curso.springboot.DAO.ClienteDAO;
-import com.curso.springboot.DAO.EnderecoDAO;
-import com.curso.springboot.DAO.EstadoDAO;
-import com.curso.springboot.DAO.ItemPedidoDAO;
-import com.curso.springboot.DAO.PagamentoDAO;
-import com.curso.springboot.DAO.PedidoDAO;
-import com.curso.springboot.DAO.ProdutoDAO;
+import com.curso.springboot.dao.CategoriaDAO;
+import com.curso.springboot.dao.CidadeDAO;
+import com.curso.springboot.dao.ClienteDAO;
+import com.curso.springboot.dao.EnderecoDAO;
+import com.curso.springboot.dao.EstadoDAO;
+import com.curso.springboot.dao.ItemPedidoDAO;
+import com.curso.springboot.dao.PagamentoDAO;
+import com.curso.springboot.dao.PedidoDAO;
+import com.curso.springboot.dao.ProdutoDAO;
 import com.curso.springboot.domain.Categoria;
 import com.curso.springboot.domain.Cidade;
 import com.curso.springboot.domain.Cliente;
@@ -60,6 +60,12 @@ public class SpringbootconceitoApplication implements CommandLineRunner{
         // Categoria produto
         Categoria categoria1 = new Categoria(null, "Informática");
         Categoria categoria2 = new Categoria(null, "Escritório");
+        Categoria categoria3 = new Categoria(null, "Cama mesa e banho");
+        Categoria categoria4 = new Categoria(null, "Eletronicos");
+        Categoria categoria5 = new Categoria(null, "Jardinagem");
+        Categoria categoria6 = new Categoria(null, "Decoração");
+        Categoria categoria7 = new Categoria(null, "Perfumaria");
+        
         Produto produto1 = new Produto(null, "Computador", 2000.00);
         Produto produto2 = new Produto(null, "Impressora", 800.00);
         Produto produto3 = new Produto(null, "Mouse", 80.00);
@@ -71,7 +77,7 @@ public class SpringbootconceitoApplication implements CommandLineRunner{
         produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
         produto3.getCategorias().addAll(Arrays.asList(categoria1));
         
-        categoriaDAO.saveAll(Arrays.asList(categoria1, categoria2));
+        categoriaDAO.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
         produtoDAO.saveAll(Arrays.asList(produto1, produto2, produto3));
         /*---------------------------------------------------------------------*/
         // Estado Cidade

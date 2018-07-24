@@ -6,8 +6,11 @@
 package com.curso.springboot.resources;
 
 import com.curso.springboot.domain.Categoria;
+import com.curso.springboot.dto.CategoriaDTO;
 import com.curso.springboot.services.CategoriaService;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,5 +59,14 @@ public class CategoriaResource {
     public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         categoriaService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+
+        List<Categoria> listCategorias = categoriaService.findAll();
+        List<CategoriaDTO> listCategoriaDTOs = listCategorias.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        
+        return ResponseEntity.ok().body(listCategoriaDTOs);
     }
 }

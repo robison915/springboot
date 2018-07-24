@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.curso.springboot.DAO;
+package com.curso.springboot.dao;
 
-import com.curso.springboot.domain.Pagamento;
+import com.curso.springboot.domain.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +16,6 @@ import org.springframework.stereotype.Repository;
  * @author Robison
  */
 @Repository
-public interface PagamentoDAO extends JpaRepository<Pagamento, Integer> {
+public interface EnderecoDAO extends JpaRepository<Endereco, Integer> {
 
 }
