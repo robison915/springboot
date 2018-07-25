@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -54,5 +57,10 @@ public class CategoriaService {
 
     public List<Categoria> findAll() {
         return categoriaDAO.findAll();
+    }
+    
+    public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+        PageRequest pageRequest = new PageRequest(page, linesPerPage,Sort.Direction.valueOf(direction), orderBy);
+        return categoriaDAO.findAll(pageRequest);
     }
 }
