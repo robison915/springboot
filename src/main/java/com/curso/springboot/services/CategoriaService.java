@@ -7,6 +7,7 @@ package com.curso.springboot.services;
 
 import com.curso.springboot.dao.CategoriaDAO;
 import com.curso.springboot.domain.Categoria;
+import com.curso.springboot.dto.CategoriaDTO;
 import com.curso.springboot.services.exception.DataIntegrityException;
 import com.curso.springboot.services.exception.ObjectNotFoundException;
 import java.util.List;
@@ -62,5 +63,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage,Sort.Direction.valueOf(direction), orderBy);
         return categoriaDAO.findAll(pageRequest);
+    }
+    
+    public Categoria fromDTO(CategoriaDTO categoriaDTO){
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 }
