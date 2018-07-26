@@ -42,8 +42,9 @@ public class CategoriaService {
     }
     
     public Categoria update(Categoria categoria) {
-        this.findById(categoria.getId());
-        return categoriaDAO.save(categoria);
+        Categoria newCategoria = this.findById(categoria.getId());
+        this.updateData(newCategoria, categoria);
+        return categoriaDAO.save(newCategoria);
     }
     
     public void deleteById(Integer id) throws DataIntegrityException{
@@ -67,5 +68,9 @@ public class CategoriaService {
     
     public Categoria fromDTO(CategoriaDTO categoriaDTO){
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+    }
+    
+    private void updateData(Categoria newCategoria, Categoria categoria){
+        newCategoria.setNome(categoria.getNome());
     }
 }
