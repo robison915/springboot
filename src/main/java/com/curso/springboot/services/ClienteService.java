@@ -25,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -47,6 +48,7 @@ public class ClienteService {
         );
     }
     
+    @Transactional
     public Cliente insert(Cliente cliente) {
         cliente.setId(null);
         cliente = clienteDAO.save(cliente);
@@ -85,8 +87,9 @@ public class ClienteService {
     
     public Cliente fromDTO(ClienteNewDTO clienteDTO){
         Cliente cliente = new Cliente(null, clienteDTO.getNome(), clienteDTO.getEmail(), clienteDTO.getCpfCnpj(), TipoCliente.toEnum(clienteDTO.getTipoCliente()));
-        Optional<Cidade> cidade = cidadeDAO.findById(clienteDTO.getCidadeId());
-        Endereco endereco = new Endereco(null, clienteDTO.getLogradouro(), clienteDTO.getNumero(), clienteDTO.getComplemento(), clienteDTO.getBairro(), clienteDTO.getCep(), cliente, cidade.get());
+        //Optional<Cidade> cidade = cidadeDAO.findById(clienteDTO.getCidadeId());
+        Cidade cidade = new Cidade(clienteDTO.getCidadeId(), null, null);
+        Endereco endereco = new Endereco(null, clienteDTO.getLogradouro(), clienteDTO.getNumero(), clienteDTO.getComplemento(), clienteDTO.getBairro(), clienteDTO.getCep(), cliente, cidade);
         cliente.getEnderecos().add(endereco);
         cliente.getTelefones().add(clienteDTO.getTelefone1());
         if(clienteDTO.getTelefone2() != null){
