@@ -6,6 +6,7 @@
 package com.curso.springboot.dto;
 
 import com.curso.springboot.domain.Cliente;
+import com.curso.springboot.services.validation.ClienteUpdate;
 import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -15,6 +16,7 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author Robison
  */
+@ClienteUpdate
 public class ClienteDTO implements Serializable{
     private static final long serialVersionUID = -2048278309839116391L;
     
