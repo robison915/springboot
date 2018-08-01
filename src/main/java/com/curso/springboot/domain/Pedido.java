@@ -63,6 +63,16 @@ public class Pedido implements Serializable{
         this.enderecoEntrega = enderecoEntrega;
         this.itens = new HashSet<>();
     }
+    
+    // Este método somente é serializado pois há o "GET" no inicio
+    public Double getValorTotal(){
+        Double total = 0.;
+        for(ItemPedido ip : this.itens){
+            total += ip.getSubTotal();
+        }
+        //total = this.itens.stream().map((ip) -> ip.getSubTotal()).reduce(total, (accumulator, _item) -> accumulator + _item);
+        return total;
+    }
 
     public Set<ItemPedido> getItens() {
         return itens;
